@@ -1,0 +1,11 @@
+{
+  "name": "PolityCore - Strategic Election & Market Intelligence",
+  "description": "Executive intelligence platform correlating real-time election results with market volatility and commodity pricing through AI-driven analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "AI-powered sentiment analysis",
+    "Predictive economic modeling",
+    "Real-time volatility alerts",
+    "Multilingual executive briefings"
+  ]
+}

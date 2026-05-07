@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidElection(data) {
+      return data.id is string && data.title is string && data.type in ['state', 'central'] && data.year is int;
+    }
+
+    function isValidEconomicMetric(data) {
+      return data.id is string && data.category in ['stock', 'good'] && data.itemName is string && data.price is number;
+    }
+
+    function isValidUpdate(data) {
+      return data.id is string && data.content is string && data.timestamp is string;
+    }
+
+    match /elections/{electionId} {
+      allow read: if true; // Publicly readable
+      allow write: if false; // System only
+    }
+
+    match /economic_metrics/{metricId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /updates/{updateId} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}
